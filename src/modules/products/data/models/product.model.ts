@@ -1,26 +1,34 @@
-// admin / src / modules / products / data / models / product.model.ts;
-import { ImageModel } from "../../../../commons/models/ImageModel";
 import { ProductEntity } from "../../domain/entity/product.entity";
+import { ImageModel } from "../../../../commons/models/ImageModel";
 
 export class ProductModel {
-  public id: string;
-  public name: string;
-  public price: string;
-  public description: string;
-  public productImages: ImageModel[];
+  constructor(
+    public id: string,
+    public name: string,
+    public price: string,
+    public description: string,
+    public productImages: ImageModel[]
+  ) {}
 
-  constructor(product: {
-    id: string;
-    name: string;
-    price: string;
-    description: string;
-    productImages: ImageModel[];
-  }) {
-    this.id = product.id;
-    this.name = product.name;
-    this.price = product.price;
-    this.description = product.description;
-    this.productImages = product.productImages;
+  static fromJson(json: { [key: string]: any }): ProductModel {
+    if (!json) throw new Error("Invalid Product JSON");
+    return new ProductModel(
+      json.id ?? "",
+      json.name ?? "",
+      json.price ?? "",
+      json.description ?? "",
+      (json.productImages || []).map((img: any) => ImageModel.fromJson(img))
+    );
+  }
+
+  toJson(): any {
+    return {
+      id: this.id,
+      name: this.name,
+      price: this.price,
+      description: this.description,
+      productImages: this.productImages.map((img) => img.toJson()),
+    };
   }
 
   toEntity(): ProductEntity {
@@ -29,7 +37,7 @@ export class ProductModel {
       name: this.name,
       price: this.price,
       description: this.description,
-      images: this.productImages,
+      images: this.productImages.map((img) => img.toEntity()),
     });
   }
 }

@@ -1,5 +1,3 @@
-// admin / src / modules / products / data / datasources / product-remote.datasource.ts;
-
 import { AxiosClient } from "../../../../commons/utils/AxiosClient";
 import { ProductModel } from "../models/product.model";
 import { ApiEndpoints } from "../../../../commons/constants/ApiEndpoints";
@@ -21,16 +19,8 @@ export class ProductRemoteDataSource {
         }
       );
 
-      // Map the response data to ProductModel instances
-      const products = response.data.data.map(
-        (product: ProductResponseDTO) =>
-          new ProductModel({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            description: product.description,
-            productImages: product.productImages,
-          })
+      const products = (response.data.data || []).map(
+        (item: ProductResponseDTO) => ProductModel.fromJson(item)
       );
 
       return products;
@@ -45,10 +35,8 @@ export class ProductRemoteDataSource {
     images: File[]
   ): Promise<ProductModel> {
     try {
-      // Create FormData to handle file uploads
       const formData = new FormData();
 
-      // Add product data as JSON
       formData.append(
         "product",
         JSON.stringify({
@@ -58,7 +46,6 @@ export class ProductRemoteDataSource {
         })
       );
 
-      // Add images
       images.forEach((image, index) => {
         formData.append(`image_${index}`, image);
       });
@@ -73,14 +60,7 @@ export class ProductRemoteDataSource {
         }
       );
 
-      // Convert response to ProductModel
-      return new ProductModel({
-        id: response.data.id,
-        name: response.data.name,
-        price: response.data.price,
-        description: response.data.description,
-        productImages: response.data.productImages,
-      });
+      return ProductModel.fromJson(response.data);
     } catch (error) {
       console.error("Failed to create product:", error);
       throw error;
@@ -93,13 +73,9 @@ export class ProductRemoteDataSource {
     images?: File[]
   ): Promise<ProductModel> {
     try {
-      // Create FormData to handle file uploads
       const formData = new FormData();
-
-      // Add product data as JSON
       formData.append("product", JSON.stringify(product));
 
-      // Add images if provided
       if (images && images.length > 0) {
         images.forEach((image, index) => {
           formData.append(`image_${index}`, image);
@@ -116,14 +92,7 @@ export class ProductRemoteDataSource {
         }
       );
 
-      // Convert response to ProductModel
-      return new ProductModel({
-        id: response.data.id,
-        name: response.data.name,
-        price: response.data.price,
-        description: response.data.description,
-        productImages: response.data.productImages,
-      });
+      return ProductModel.fromJson(response.data);
     } catch (error) {
       console.error("Failed to update product:", error);
       throw error;

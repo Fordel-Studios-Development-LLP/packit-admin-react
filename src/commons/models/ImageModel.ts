@@ -1,7 +1,22 @@
 export class ImageModel {
-    public secure_url: string;
+  constructor(public secure_url: string) {}
 
-    constructor(image: ImageModel) {
-        this.secure_url = image.secure_url;
+  static fromJson(json: { [key: string]: any }): ImageModel {
+    if (!json || !json.secure_url) {
+      throw new Error("Invalid Image JSON");
     }
+    return new ImageModel(json.secure_url);
   }
+
+  toJson(): any {
+    return {
+      secure_url: this.secure_url,
+    };
+  }
+
+  toEntity(): any {
+    return {
+      secure_url: this.secure_url,
+    };
+  }
+}
