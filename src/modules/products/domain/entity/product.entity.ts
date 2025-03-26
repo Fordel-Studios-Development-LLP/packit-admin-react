@@ -1,4 +1,3 @@
-// admin/src/modules/products/domain/entity/product.entity.ts
 import { ImageEntity } from "../../../../commons/entities/ImageEntity";
 import { ProductModel } from "../../data/models/product.model";
 
@@ -25,16 +24,13 @@ export class ProductEntity {
     this.images = props.images;
   }
 
-  // Add this to transform the ProductEntity to ProductModel (if that's the intended behavior)
   toModel(): ProductModel {
-    return new ProductModel({
-      id: this.id,
-      name: this.name,
-      price: this.price,
-      description: this.description,
-      productImages: this.images.map((img) => ({
-        secure_url: img.secure_url,
-      })),
-    });
+    return new ProductModel(
+      this.id,
+      this.name,
+      this.price,
+      this.description,
+      this.images.map((img) => img.toModel())
+    );
   }
 }
