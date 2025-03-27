@@ -3,8 +3,8 @@ import { Button } from "../../../../components/ui/button";
 import { useProductViewModel } from "../viewmodels/product.viewmodel";
 
 import { useProductFormViewModel } from "../viewmodels/product-form.viewmodel";
-import { ProductListComponent } from "../components/ProductListComponent";
-import { ProductFormComponent } from "../components/ProductFormComponent";
+import { ProductListComponent } from "./components/ProductListComponent";
+import { ProductFormComponent } from "./components/ProductFormComponent";
 
 export default function ProductView() {
   const {

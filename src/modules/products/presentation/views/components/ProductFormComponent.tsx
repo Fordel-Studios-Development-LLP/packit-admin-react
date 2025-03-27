@@ -1,10 +1,10 @@
 // admin/src/modules/products/presentation/components/product-form.component.tsx
 
 import React from "react";
-import { Button } from "../../../../components/ui/button";
-import { Input } from "../../../../components/ui/input";
-import { ProductEntity } from "../../domain/entity/product.entity";
-import { ProductFormViewModel } from "../viewmodels/product-form.viewmodel";
+import { Button } from "../../../../../components/ui/button";
+import { Input } from "../../../../../components/ui/input";
+import { ProductEntity } from "../../../domain/entity/product.entity";
+import { ProductFormViewModel } from "../../viewmodels/product-form.viewmodel";
 
 interface ProductFormProps {
   product?: ProductEntity;

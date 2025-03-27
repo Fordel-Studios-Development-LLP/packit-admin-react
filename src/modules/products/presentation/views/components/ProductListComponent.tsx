@@ -7,9 +7,9 @@ import {
   TableBody,
   Table,
   TableCell,
-} from "../../../../components/ui/table";
+} from "../../../../../components/ui/table";
 import { ProductItemComponent } from "./ProductItemComponent";
-import { ProductEntity } from "../../domain/entity/product.entity";
+import { ProductEntity } from "../../../domain/entity/product.entity";
 
 interface ProductListProps {
   products: ProductEntity[];

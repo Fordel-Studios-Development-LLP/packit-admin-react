@@ -1,8 +1,8 @@
 // admin/src/modules/products/presentation/components/product-item.component.tsx
 import React from "react";
-import { TableRow, TableCell } from "../../../../components/ui/table";
-import { Button } from "../../../../components/ui/button";
-import { ProductEntity } from "../../domain/entity/product.entity";
+import { TableRow, TableCell } from "../../../../../components/ui/table";
+import { Button } from "../../../../../components/ui/button";
+import { ProductEntity } from "../../../domain/entity/product.entity";
 
 interface ProductItemProps {
   product: ProductEntity;
